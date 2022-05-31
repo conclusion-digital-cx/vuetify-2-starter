@@ -1,12 +1,14 @@
 <script>
 export default {
-  data: vm => ({
-    items: []
+  data: (vm) => ({
+    items: [],
   }),
   async created() {
-    this.items = await fetch(`http://localhost:5002/posts`).then(e=>e.json())
-  }
-}
+    this.items = await fetch(`http://localhost:5002/posts`).then((e) =>
+      e.json()
+    );
+  },
+};
 </script>
 
 <template>
@@ -33,8 +35,18 @@ export default {
             </FeaturedCard>
           </v-col>
           <v-col :cols="12" md="auto grow">
-            <v-card> 
-              {{items}}
+            <v-card>
+              <div v-for="(item, index) in items" :key="index">
+                <FeaturedCard>
+                  <FeaturedCardTop>
+                    <div>{{item.title}}</div>
+                    <FeaturedCardStat>{{item.author}}</FeaturedCardStat>
+                  </FeaturedCardTop>
+                  <v-card-text>
+                    <Badge>{{item.id}}</Badge>
+                  </v-card-text>
+                </FeaturedCard>
+              </div>
             </v-card>
           </v-col>
         </v-row>

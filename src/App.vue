@@ -1,3 +1,14 @@
+<script>
+export default {
+  data: vm => ({
+    items: []
+  }),
+  async created() {
+    this.items = await fetch(`http://localhost:5002/posts`).then(e=>e.json())
+  }
+}
+</script>
+
 <template>
   <v-app>
     <v-main>
@@ -22,7 +33,9 @@
             </FeaturedCard>
           </v-col>
           <v-col :cols="12" md="auto grow">
-            <v-card> content </v-card>
+            <v-card> 
+              {{items}}
+            </v-card>
           </v-col>
         </v-row>
       </v-container>
